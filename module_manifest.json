@@ -1,0 +1,165 @@
+{
+  "module_name": "@istari:opendis-module",
+  "module_version": "1.0.0",
+  "module_type": "function",
+  "module_checksum": "hash",
+  "module_display_name": "opendis DIS Protocol Module",
+  "internal": false,
+  "tool": "opendis",
+  "tool_versions": ["1.0"],
+  "tool_display_name": "opendis (IEEE 1278.1 DIS Protocol)",
+  "operating_systems": ["macOS 26"],
+  "agent_version": ">9.0.0",
+  "authors": [
+    {
+      "name": "Istari Engineering",
+      "email": "gandalf@istaridigital.com"
+    }
+  ],
+  "dependencies": [],
+  "dev_dependencies": [
+    {
+      "name": "Python",
+      "version": ">=3.12,<3.13",
+      "tool_type": "auxiliary_tool",
+      "reason": "Required for building and running the module.",
+      "url": "https://www.python.org/"
+    },
+    {
+      "name": "opendis",
+      "version": ">=1.0",
+      "tool_type": "auxiliary_tool",
+      "reason": "Python implementation of IEEE 1278.1 DIS protocol.",
+      "url": "https://pypi.org/project/opendis/"
+    }
+  ],
+  "functions": {
+    "@istari:ParseDISStream": [
+      {
+        "entrypoint": "opendis_module",
+        "run_command": "{entrypoint} ParseDISStream --input-file {input_file} --output-file {output_file} --temp-dir {temp_dir}",
+        "function_schema": {
+          "inputs": {
+            "input_model": {
+              "type": "user_model",
+              "validation_types": ["@extension:dis", "@extension:bin"],
+              "optional": false
+            }
+          },
+          "outputs": [
+            { "name": "pdus_json", "type": "file", "required": true },
+            { "name": "metadata", "type": "file", "required": true }
+          ]
+        },
+        "operating_systems": ["macOS 26"],
+        "tool_versions": ["1.0"]
+      }
+    ],
+    "@istari:ExtractEntityStates": [
+      {
+        "entrypoint": "opendis_module",
+        "run_command": "{entrypoint} ExtractEntityStates --input-file {input_file} --output-file {output_file} --temp-dir {temp_dir}",
+        "function_schema": {
+          "inputs": {
+            "input_model": {
+              "type": "user_model",
+              "validation_types": ["@extension:dis", "@extension:bin"],
+              "optional": false
+            },
+            "entity_id": {
+              "type": "parameter",
+              "validation_types": [],
+              "optional": true
+            }
+          },
+          "outputs": [
+            { "name": "entities_json", "type": "file", "required": true },
+            { "name": "metadata", "type": "file", "required": true }
+          ]
+        },
+        "operating_systems": ["macOS 26"],
+        "tool_versions": ["1.0"]
+      }
+    ],
+    "@istari:AnalyzeScenario": [
+      {
+        "entrypoint": "opendis_module",
+        "run_command": "{entrypoint} AnalyzeScenario --input-file {input_file} --output-file {output_file} --temp-dir {temp_dir}",
+        "function_schema": {
+          "inputs": {
+            "input_model": {
+              "type": "user_model",
+              "validation_types": ["@extension:dis", "@extension:bin"],
+              "optional": false
+            }
+          },
+          "outputs": [
+            { "name": "scenario_analysis_json", "type": "file", "required": true },
+            { "name": "metadata", "type": "file", "required": true }
+          ]
+        },
+        "operating_systems": ["macOS 26"],
+        "tool_versions": ["1.0"]
+      }
+    ],
+    "@istari:ConvertDISToJSON": [
+      {
+        "entrypoint": "opendis_module",
+        "run_command": "{entrypoint} ConvertDISToJSON --input-file {input_file} --output-file {output_file} --temp-dir {temp_dir}",
+        "function_schema": {
+          "inputs": {
+            "input_model": {
+              "type": "user_model",
+              "validation_types": ["@extension:dis", "@extension:bin"],
+              "optional": false
+            },
+            "include_raw_bytes": {
+              "type": "parameter",
+              "validation_types": [],
+              "optional": true
+            }
+          },
+          "outputs": [
+            { "name": "dis_data_json", "type": "file", "required": true },
+            { "name": "metadata", "type": "file", "required": true }
+          ]
+        },
+        "operating_systems": ["macOS 26"],
+        "tool_versions": ["1.0"]
+      }
+    ],
+    "@istari:ValidateDISStream": [
+      {
+        "entrypoint": "opendis_module",
+        "run_command": "{entrypoint} ValidateDISStream --input-file {input_file} --output-file {output_file} --temp-dir {temp_dir}",
+        "function_schema": {
+          "inputs": {
+            "input_model": {
+              "type": "user_model",
+              "validation_types": ["@extension:dis", "@extension:bin"],
+              "optional": false
+            }
+          },
+          "outputs": [
+            { "name": "validation_json", "type": "file", "required": true },
+            { "name": "metadata", "type": "file", "required": true }
+          ]
+        },
+        "operating_systems": ["macOS 26"],
+        "tool_versions": ["1.0"]
+      }
+    ]
+  },
+  "scripts": [
+    {
+      "operating_systems": ["macOS 26"],
+      "install": "scripts/macos/install.sh",
+      "build": {
+        "command": "scripts/macos/build.sh",
+        "output_path": "dist/"
+      },
+      "test_unit": "scripts/macos/test_unit.sh",
+      "clean": "scripts/macos/clean.sh"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "log_level": "info",
+  "log_file_path": "opendis_module.log"
+}
