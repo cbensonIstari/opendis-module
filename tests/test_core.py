@@ -233,3 +233,85 @@ class TestParameterCoercion:
             data_output = next(o for o in outputs if o.name == "dis_data_json")
             content = json.loads(Path(data_output.path).read_text())
             assert "raw_bytes" not in content["pdus"][0]
+
+
+# ── PlotScenario ────────────────────────────────────────────────────────────
+class TestPlotScenario:
+    def test_plot_scenario_produces_png(self, scenario_file):
+        """PlotScenario produces a PNG file with entity trajectories."""
+        from opendis_module.functions.plot_scenario import plot_scenario
+
+        input_json = json.dumps({
+            "input_model": {"type": "user_model", "value": scenario_file},
+        })
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            outputs = plot_scenario(input_json, temp_dir)
+            assert len(outputs) == 2
+
+            plot_output = next(o for o in outputs if o.name == "scenario_plot_png")
+            assert Path(plot_output.path).exists()
+            assert Path(plot_output.path).suffix == ".png"
+            # PNG files start with magic bytes
+            png_data = Path(plot_output.path).read_bytes()
+            assert png_data[:4] == b"\x89PNG"
+            assert len(png_data) > 1000  # Non-trivial image
+
+            metadata_output = next(o for o in outputs if o.name == "metadata")
+            metadata = json.loads(Path(metadata_output.path).read_text())
+            assert metadata["function"] == "PlotScenario"
+            assert metadata["entity_count"] == 3
+            assert metadata["pdu_count"] > 0
+            assert metadata["output_dpi"] == 200
+
+    def test_plot_scenario_single_entity(self, single_entity_file):
+        """PlotScenario works with a single entity."""
+        from opendis_module.functions.plot_scenario import plot_scenario
+
+        input_json = json.dumps({
+            "input_model": {"type": "user_model", "value": single_entity_file},
+        })
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            outputs = plot_scenario(input_json, temp_dir)
+            assert len(outputs) == 2
+            plot_output = next(o for o in outputs if o.name == "scenario_plot_png")
+            assert Path(plot_output.path).exists()
+            metadata = json.loads(
+                Path(next(o for o in outputs if o.name == "metadata").path).read_text()
+            )
+            assert metadata["entity_count"] == 1
+
+    def test_plot_scenario_empty_file(self, empty_file):
+        """PlotScenario handles empty DIS file gracefully (no entities)."""
+        from opendis_module.functions.plot_scenario import plot_scenario
+
+        input_json = json.dumps({
+            "input_model": {"type": "user_model", "value": empty_file},
+        })
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            outputs = plot_scenario(input_json, temp_dir)
+            assert len(outputs) == 2
+            metadata = json.loads(
+                Path(next(o for o in outputs if o.name == "metadata").path).read_text()
+            )
+            assert metadata["entity_count"] == 0
+            assert metadata["pdu_count"] == 0
+
+    def test_plot_scenario_nonexistent_file(self):
+        """PlotScenario raises ValueError for nonexistent file."""
+        from opendis_module.functions.plot_scenario import plot_scenario
+
+        input_json = json.dumps({
+            "input_model": {"type": "user_model", "value": "/tmp/nonexistent.dis"},
+        })
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            with pytest.raises(ValueError, match="PlotScenario failed"):
+                plot_scenario(input_json, temp_dir)
+
+    def test_plot_scenario_registered(self):
+        """PlotScenario is registered in FUNCTIONS."""
+        from opendis_module.functions.registry import FUNCTIONS
+        assert "PlotScenario" in FUNCTIONS

@@ -1,14 +1,18 @@
 {
   "module_name": "@istari:opendis-module",
-  "module_version": "1.0.0",
+  "module_version": "1.1.0",
   "module_type": "function",
   "module_checksum": "hash",
   "module_display_name": "opendis DIS Protocol Module",
   "internal": false,
   "tool": "opendis",
-  "tool_versions": ["1.0"],
+  "tool_versions": [
+    "1.0"
+  ],
   "tool_display_name": "opendis (IEEE 1278.1 DIS Protocol)",
-  "operating_systems": ["macOS 26"],
+  "operating_systems": [
+    "macOS 26"
+  ],
   "agent_version": ">9.0.0",
   "authors": [
     {
@@ -42,17 +46,32 @@
           "inputs": {
             "input_model": {
               "type": "user_model",
-              "validation_types": ["@extension:dis", "@extension:bin"],
+              "validation_types": [
+                "@extension:dis",
+                "@extension:bin"
+              ],
               "optional": false
             }
           },
           "outputs": [
-            { "name": "pdus_json", "type": "file", "required": true },
-            { "name": "metadata", "type": "file", "required": true }
+            {
+              "name": "pdus_json",
+              "type": "file",
+              "required": true
+            },
+            {
+              "name": "metadata",
+              "type": "file",
+              "required": true
+            }
           ]
         },
-        "operating_systems": ["macOS 26"],
-        "tool_versions": ["1.0"]
+        "operating_systems": [
+          "macOS 26"
+        ],
+        "tool_versions": [
+          "1.0"
+        ]
       }
     ],
     "@istari:ExtractEntityStates": [
@@ -63,7 +82,10 @@
           "inputs": {
             "input_model": {
               "type": "user_model",
-              "validation_types": ["@extension:dis", "@extension:bin"],
+              "validation_types": [
+                "@extension:dis",
+                "@extension:bin"
+              ],
               "optional": false
             },
             "entity_id": {
@@ -73,12 +95,24 @@
             }
           },
           "outputs": [
-            { "name": "entities_json", "type": "file", "required": true },
-            { "name": "metadata", "type": "file", "required": true }
+            {
+              "name": "entities_json",
+              "type": "file",
+              "required": true
+            },
+            {
+              "name": "metadata",
+              "type": "file",
+              "required": true
+            }
           ]
         },
-        "operating_systems": ["macOS 26"],
-        "tool_versions": ["1.0"]
+        "operating_systems": [
+          "macOS 26"
+        ],
+        "tool_versions": [
+          "1.0"
+        ]
       }
     ],
     "@istari:AnalyzeScenario": [
@@ -89,17 +123,32 @@
           "inputs": {
             "input_model": {
               "type": "user_model",
-              "validation_types": ["@extension:dis", "@extension:bin"],
+              "validation_types": [
+                "@extension:dis",
+                "@extension:bin"
+              ],
               "optional": false
             }
           },
           "outputs": [
-            { "name": "scenario_analysis_json", "type": "file", "required": true },
-            { "name": "metadata", "type": "file", "required": true }
+            {
+              "name": "scenario_analysis_json",
+              "type": "file",
+              "required": true
+            },
+            {
+              "name": "metadata",
+              "type": "file",
+              "required": true
+            }
           ]
         },
-        "operating_systems": ["macOS 26"],
-        "tool_versions": ["1.0"]
+        "operating_systems": [
+          "macOS 26"
+        ],
+        "tool_versions": [
+          "1.0"
+        ]
       }
     ],
     "@istari:ConvertDISToJSON": [
@@ -110,7 +159,10 @@
           "inputs": {
             "input_model": {
               "type": "user_model",
-              "validation_types": ["@extension:dis", "@extension:bin"],
+              "validation_types": [
+                "@extension:dis",
+                "@extension:bin"
+              ],
               "optional": false
             },
             "include_raw_bytes": {
@@ -120,12 +172,60 @@
             }
           },
           "outputs": [
-            { "name": "dis_data_json", "type": "file", "required": true },
-            { "name": "metadata", "type": "file", "required": true }
+            {
+              "name": "dis_data_json",
+              "type": "file",
+              "required": true
+            },
+            {
+              "name": "metadata",
+              "type": "file",
+              "required": true
+            }
           ]
         },
-        "operating_systems": ["macOS 26"],
-        "tool_versions": ["1.0"]
+        "operating_systems": [
+          "macOS 26"
+        ],
+        "tool_versions": [
+          "1.0"
+        ]
+      }
+    ],
+    "@istari:PlotScenario": [
+      {
+        "entrypoint": "opendis_module",
+        "run_command": "{entrypoint} PlotScenario --input-file {input_file} --output-file {output_file} --temp-dir {temp_dir}",
+        "function_schema": {
+          "inputs": {
+            "input_model": {
+              "type": "user_model",
+              "validation_types": [
+                "@extension:dis",
+                "@extension:bin"
+              ],
+              "optional": false
+            }
+          },
+          "outputs": [
+            {
+              "name": "scenario_plot_png",
+              "type": "file",
+              "required": true
+            },
+            {
+              "name": "metadata",
+              "type": "file",
+              "required": true
+            }
+          ]
+        },
+        "operating_systems": [
+          "macOS 26"
+        ],
+        "tool_versions": [
+          "1.0"
+        ]
       }
     ],
     "@istari:ValidateDISStream": [
@@ -136,23 +236,40 @@
           "inputs": {
             "input_model": {
               "type": "user_model",
-              "validation_types": ["@extension:dis", "@extension:bin"],
+              "validation_types": [
+                "@extension:dis",
+                "@extension:bin"
+              ],
               "optional": false
             }
           },
           "outputs": [
-            { "name": "validation_json", "type": "file", "required": true },
-            { "name": "metadata", "type": "file", "required": true }
+            {
+              "name": "validation_json",
+              "type": "file",
+              "required": true
+            },
+            {
+              "name": "metadata",
+              "type": "file",
+              "required": true
+            }
           ]
         },
-        "operating_systems": ["macOS 26"],
-        "tool_versions": ["1.0"]
+        "operating_systems": [
+          "macOS 26"
+        ],
+        "tool_versions": [
+          "1.0"
+        ]
       }
     ]
   },
   "scripts": [
     {
-      "operating_systems": ["macOS 26"],
+      "operating_systems": [
+        "macOS 26"
+      ],
       "install": "scripts/macos/install.sh",
       "build": {
         "command": "scripts/macos/build.sh",

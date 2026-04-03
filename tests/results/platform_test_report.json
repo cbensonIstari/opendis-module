@@ -1,28 +1,40 @@
 {
   "module": "@istari:opendis-module",
   "module_version": "1.0.0",
-  "timestamp": "2026-04-01T09:01:51.823219",
-  "system_id": "ab9cb5f9-ee0a-4204-b918-a4bb540cb10c",
-  "system_url": "https://demo.istari.app/systems/ab9cb5f9-ee0a-4204-b918-a4bb540cb10c",
-  "readme_model_id": "75ed0955-638b-486b-9e6e-4b88b63149fd",
-  "final_config_id": "b8c516d9-f36a-419f-8a22-9ec43a231155",
+  "timestamp": "2026-04-01T11:20:13.310518",
+  "system_id": "c20bdd3b-3b46-4334-b89b-3e76ee41354e",
+  "system_url": "https://demo.istari.app/systems/c20bdd3b-3b46-4334-b89b-3e76ee41354e",
+  "readme_model_id": "60349a44-e373-4f28-a38b-15abe6932a54",
+  "final_config_id": "fafb3ee7-a301-46af-8d14-9e02ea306eed",
   "agent_id": "e0fddacb-5ff2-4e47-b5df-9b64228e7f55",
   "functions_tested": [
     {
       "name": "ParseDISStream",
       "function_key": "@istari:ParseDISStream",
       "status": "COMPLETED",
-      "job_id": "1de6b878-cb6a-4d32-be0d-f69351023cfc",
-      "job_url": "https://demo.istari.app/jobs/1de6b878-cb6a-4d32-be0d-f69351023cfc",
-      "duration_seconds": 60,
+      "job_id": "2fad54e0-af63-464b-bb44-ff2d002f754d",
+      "job_url": "https://demo.istari.app/jobs/2fad54e0-af63-464b-bb44-ff2d002f754d",
+      "duration_seconds": 45,
       "timeline": "JobStatusName.PENDING -> JobStatusName.CLAIMED -> JobStatusName.VALIDATING -> JobStatusName.RUNNING -> JobStatusName.UPLOADING -> JobStatusName.COMPLETED",
       "engineering_summary": "35 PDUs parsed. 35 PDUs parsed. ",
       "artifacts": [
         {
-          "id": "a311b153-44ae-469f-b537-986a3aec7bff",
+          "id": "2dfcb338-43a2-4fb8-929a-6e148c9285ad",
+          "name": "metadata.json",
+          "size": 112,
+          "link": "https://demo.istari.app/artifacts/2dfcb338-43a2-4fb8-929a-6e148c9285ad",
+          "content": {
+            "function": "ParseDISStream",
+            "source_file": "scenario_basic.dis",
+            "pdu_count": 35,
+            "dis_version": 7
+          }
+        },
+        {
+          "id": "76c50210-12fe-4731-9ec7-fbb15c04418f",
           "name": "pdus.json",
           "size": 25497,
-          "link": "https://demo.istari.app/artifacts/a311b153-44ae-469f-b537-986a3aec7bff",
+          "link": "https://demo.istari.app/artifacts/76c50210-12fe-4731-9ec7-fbb15c04418f",
           "content": {
             "source_file": "scenario_basic.dis",
             "pdu_count": 35,
@@ -1251,18 +1263,6 @@
               }
             ]
           }
-        },
-        {
-          "id": "c1dc6e1f-ee32-4a3e-9403-11342480447b",
-          "name": "metadata.json",
-          "size": 112,
-          "link": "https://demo.istari.app/artifacts/c1dc6e1f-ee32-4a3e-9403-11342480447b",
-          "content": {
-            "function": "ParseDISStream",
-            "source_file": "scenario_basic.dis",
-            "pdu_count": 35,
-            "dis_version": 7
-          }
         }
       ]
     },
@@ -1270,17 +1270,17 @@
       "name": "ExtractEntityStates",
       "function_key": "@istari:ExtractEntityStates",
       "status": "COMPLETED",
-      "job_id": "7f3b973b-a91e-4e23-86fa-0072f8f81bc5",
-      "job_url": "https://demo.istari.app/jobs/7f3b973b-a91e-4e23-86fa-0072f8f81bc5",
-      "duration_seconds": 46,
+      "job_id": "75e08eff-104b-4d1b-9ebe-7ea0a6266e7d",
+      "job_url": "https://demo.istari.app/jobs/75e08eff-104b-4d1b-9ebe-7ea0a6266e7d",
+      "duration_seconds": 45,
       "timeline": "JobStatusName.PENDING -> JobStatusName.CLAIMED -> JobStatusName.VALIDATING -> JobStatusName.RUNNING -> JobStatusName.UPLOADING -> JobStatusName.COMPLETED",
       "engineering_summary": "3 entities. 3 entities. 35 PDUs parsed. 35 PDUs parsed. ",
       "artifacts": [
         {
-          "id": "e1efaae0-d7a0-4507-96c4-8116732b3b15",
+          "id": "3323cc57-9822-4fd7-8807-fdda7664e1ef",
           "name": "metadata.json",
           "size": 127,
-          "link": "https://demo.istari.app/artifacts/e1efaae0-d7a0-4507-96c4-8116732b3b15",
+          "link": "https://demo.istari.app/artifacts/3323cc57-9822-4fd7-8807-fdda7664e1ef",
           "content": {
             "function": "ExtractEntityStates",
             "source_file": "scenario_basic.dis",
@@ -1289,10 +1289,10 @@
           }
         },
         {
-          "id": "efdda3d8-e14c-4999-a599-dae531e60be1",
+          "id": "e1946311-589c-43dc-8d17-e6b81c178c82",
           "name": "entities.json",
           "size": 18680,
-          "link": "https://demo.istari.app/artifacts/efdda3d8-e14c-4999-a599-dae531e60be1",
+          "link": "https://demo.istari.app/artifacts/e1946311-589c-43dc-8d17-e6b81c178c82",
           "content": {
             "source_file": "scenario_basic.dis",
             "entity_count": 3,
@@ -2054,10 +2054,22 @@
           }
         },
         {
-          "id": "a311b153-44ae-469f-b537-986a3aec7bff",
+          "id": "2dfcb338-43a2-4fb8-929a-6e148c9285ad",
+          "name": "metadata.json",
+          "size": 112,
+          "link": "https://demo.istari.app/artifacts/2dfcb338-43a2-4fb8-929a-6e148c9285ad",
+          "content": {
+            "function": "ParseDISStream",
+            "source_file": "scenario_basic.dis",
+            "pdu_count": 35,
+            "dis_version": 7
+          }
+        },
+        {
+          "id": "76c50210-12fe-4731-9ec7-fbb15c04418f",
           "name": "pdus.json",
           "size": 25497,
-          "link": "https://demo.istari.app/artifacts/a311b153-44ae-469f-b537-986a3aec7bff",
+          "link": "https://demo.istari.app/artifacts/76c50210-12fe-4731-9ec7-fbb15c04418f",
           "content": {
             "source_file": "scenario_basic.dis",
             "pdu_count": 35,
@@ -3286,18 +3298,6 @@
               }
             ]
           }
-        },
-        {
-          "id": "c1dc6e1f-ee32-4a3e-9403-11342480447b",
-          "name": "metadata.json",
-          "size": 112,
-          "link": "https://demo.istari.app/artifacts/c1dc6e1f-ee32-4a3e-9403-11342480447b",
-          "content": {
-            "function": "ParseDISStream",
-            "source_file": "scenario_basic.dis",
-            "pdu_count": 35,
-            "dis_version": 7
-          }
         }
       ]
     },
@@ -3305,17 +3305,29 @@
       "name": "AnalyzeScenario",
       "function_key": "@istari:AnalyzeScenario",
       "status": "COMPLETED",
-      "job_id": "380b9893-813a-4990-8465-7a5553e05f23",
-      "job_url": "https://demo.istari.app/jobs/380b9893-813a-4990-8465-7a5553e05f23",
-      "duration_seconds": 45,
+      "job_id": "b0f5c9b2-66c9-4822-bff8-df9a40341404",
+      "job_url": "https://demo.istari.app/jobs/b0f5c9b2-66c9-4822-bff8-df9a40341404",
+      "duration_seconds": 60,
       "timeline": "JobStatusName.PENDING -> JobStatusName.CLAIMED -> JobStatusName.VALIDATING -> JobStatusName.RUNNING -> JobStatusName.UPLOADING -> JobStatusName.COMPLETED",
-      "engineering_summary": "2 entities. [{'timestamp': 2000, 'firing_entity': '42.1.1', 'target_entity': '42.1.2'}, {'timestamp': 2500, 'firing_entity': '42.1.1', 'target_entity': '42.1.2'}, {'timestamp': 3000, 'firing_entity': '42.1.1', 'target_entity': '42.1.2'}, {'timestamp': 3500, 'firing_entity': '42.1.1', 'target_entity': '42.1.2'}, {'timestamp': 4000, 'firing_entity': '42.1.1', 'target_entity': '42.1.2'}] fire, [{'timestamp': 2200, 'firing_entity': '42.1.1', 'target_entity': '42.1.2', 'location_ecef': {'x': 4500100.0, 'y': 200050.0, 'z': 4200020.0}}, {'timestamp': 2700, 'firing_entity': '42.1.1', 'target_entity': '42.1.2', 'location_ecef': {'x': 4500100.0, 'y': 200050.0, 'z': 4200020.0}}, {'timestamp': 3200, 'firing_entity': '42.1.1', 'target_entity': '42.1.2', 'location_ecef': {'x': 4500100.0, 'y': 200050.0, 'z': 4200020.0}}, {'timestamp': 3700, 'firing_entity': '42.1.1', 'target_entity': '42.1.2', 'location_ecef': {'x': 4500100.0, 'y': 200050.0, 'z': 4200020.0}}, {'timestamp': 4200, 'firing_entity': '42.1.1', 'target_entity': '42.1.2', 'location_ecef': {'x': 4500100.0, 'y': 200050.0, 'z': 4200020.0}}] detonation events. 2 entities. 50 total PDUs. ",
+      "engineering_summary": "2 entities. 50 total PDUs. 2 entities. [{'timestamp': 2000, 'firing_entity': '42.1.1', 'target_entity': '42.1.2'}, {'timestamp': 2500, 'firing_entity': '42.1.1', 'target_entity': '42.1.2'}, {'timestamp': 3000, 'firing_entity': '42.1.1', 'target_entity': '42.1.2'}, {'timestamp': 3500, 'firing_entity': '42.1.1', 'target_entity': '42.1.2'}, {'timestamp': 4000, 'firing_entity': '42.1.1', 'target_entity': '42.1.2'}] fire, [{'timestamp': 2200, 'firing_entity': '42.1.1', 'target_entity': '42.1.2', 'location_ecef': {'x': 4500100.0, 'y': 200050.0, 'z': 4200020.0}}, {'timestamp': 2700, 'firing_entity': '42.1.1', 'target_entity': '42.1.2', 'location_ecef': {'x': 4500100.0, 'y': 200050.0, 'z': 4200020.0}}, {'timestamp': 3200, 'firing_entity': '42.1.1', 'target_entity': '42.1.2', 'location_ecef': {'x': 4500100.0, 'y': 200050.0, 'z': 4200020.0}}, {'timestamp': 3700, 'firing_entity': '42.1.1', 'target_entity': '42.1.2', 'location_ecef': {'x': 4500100.0, 'y': 200050.0, 'z': 4200020.0}}, {'timestamp': 4200, 'firing_entity': '42.1.1', 'target_entity': '42.1.2', 'location_ecef': {'x': 4500100.0, 'y': 200050.0, 'z': 4200020.0}}] detonation events. ",
       "artifacts": [
         {
-          "id": "6569b4f1-a141-4e15-a4f1-915407a8b7ce",
+          "id": "f71c1b5b-3ae6-40e6-b1dc-26ab5d032c8b",
+          "name": "metadata.json",
+          "size": 116,
+          "link": "https://demo.istari.app/artifacts/f71c1b5b-3ae6-40e6-b1dc-26ab5d032c8b",
+          "content": {
+            "function": "AnalyzeScenario",
+            "source_file": "scenario_combat.dis",
+            "entity_count": 2,
+            "total_pdus": 50
+          }
+        },
+        {
+          "id": "ab580b06-ff19-421d-894c-35b1932ededb",
           "name": "scenario_analysis.json",
           "size": 2363,
-          "link": "https://demo.istari.app/artifacts/6569b4f1-a141-4e15-a4f1-915407a8b7ce",
+          "link": "https://demo.istari.app/artifacts/ab580b06-ff19-421d-894c-35b1932ededb",
           "content": {
             "source_file": "scenario_combat.dis",
             "scenario_summary": {
@@ -3431,18 +3443,6 @@
               "unique_engagements": 1
             }
           }
-        },
-        {
-          "id": "be3eed75-22c9-4af7-aff7-01fee5cf9bf5",
-          "name": "metadata.json",
-          "size": 116,
-          "link": "https://demo.istari.app/artifacts/be3eed75-22c9-4af7-aff7-01fee5cf9bf5",
-          "content": {
-            "function": "AnalyzeScenario",
-            "source_file": "scenario_combat.dis",
-            "entity_count": 2,
-            "total_pdus": 50
-          }
         }
       ]
     },
@@ -3450,17 +3450,29 @@
       "name": "ConvertDISToJSON",
       "function_key": "@istari:ConvertDISToJSON",
       "status": "COMPLETED",
-      "job_id": "1b151b13-0575-4b5e-9ae7-233cfbe4e6ac",
-      "job_url": "https://demo.istari.app/jobs/1b151b13-0575-4b5e-9ae7-233cfbe4e6ac",
-      "duration_seconds": 45,
+      "job_id": "98596b75-d41c-45cc-ba0e-1cc83bf49f1e",
+      "job_url": "https://demo.istari.app/jobs/98596b75-d41c-45cc-ba0e-1cc83bf49f1e",
+      "duration_seconds": 30,
       "timeline": "JobStatusName.PENDING -> JobStatusName.CLAIMED -> JobStatusName.VALIDATING -> JobStatusName.RUNNING -> JobStatusName.UPLOADING -> JobStatusName.COMPLETED",
       "engineering_summary": "35 PDUs parsed. 35 PDUs parsed. 3 entities. 3 entities. 35 PDUs parsed. 35 PDUs parsed. ",
       "artifacts": [
         {
-          "id": "efcd57af-f971-40ae-aca5-1fc2d378a931",
+          "id": "254fc850-e9c0-4620-9492-cd124820e48d",
+          "name": "metadata.json",
+          "size": 124,
+          "link": "https://demo.istari.app/artifacts/254fc850-e9c0-4620-9492-cd124820e48d",
+          "content": {
+            "function": "ConvertDISToJSON",
+            "source_file": "scenario_basic.dis",
+            "pdu_count": 35,
+            "include_raw_bytes": false
+          }
+        },
+        {
+          "id": "02f4d73d-2321-4106-9794-c23a699a4198",
           "name": "dis_data.json",
           "size": 25524,
-          "link": "https://demo.istari.app/artifacts/efcd57af-f971-40ae-aca5-1fc2d378a931",
+          "link": "https://demo.istari.app/artifacts/02f4d73d-2321-4106-9794-c23a699a4198",
           "content": {
             "source_file": "scenario_basic.dis",
             "pdu_count": 35,
@@ -4692,22 +4704,10 @@
           }
         },
         {
-          "id": "538b613a-a566-4b3f-b270-ce538abe4af3",
-          "name": "metadata.json",
-          "size": 124,
-          "link": "https://demo.istari.app/artifacts/538b613a-a566-4b3f-b270-ce538abe4af3",
-          "content": {
-            "function": "ConvertDISToJSON",
-            "source_file": "scenario_basic.dis",
-            "pdu_count": 35,
-            "include_raw_bytes": false
-          }
-        },
-        {
-          "id": "e1efaae0-d7a0-4507-96c4-8116732b3b15",
+          "id": "3323cc57-9822-4fd7-8807-fdda7664e1ef",
           "name": "metadata.json",
           "size": 127,
-          "link": "https://demo.istari.app/artifacts/e1efaae0-d7a0-4507-96c4-8116732b3b15",
+          "link": "https://demo.istari.app/artifacts/3323cc57-9822-4fd7-8807-fdda7664e1ef",
           "content": {
             "function": "ExtractEntityStates",
             "source_file": "scenario_basic.dis",
@@ -4716,10 +4716,10 @@
           }
         },
         {
-          "id": "efdda3d8-e14c-4999-a599-dae531e60be1",
+          "id": "e1946311-589c-43dc-8d17-e6b81c178c82",
           "name": "entities.json",
           "size": 18680,
-          "link": "https://demo.istari.app/artifacts/efdda3d8-e14c-4999-a599-dae531e60be1",
+          "link": "https://demo.istari.app/artifacts/e1946311-589c-43dc-8d17-e6b81c178c82",
           "content": {
             "source_file": "scenario_basic.dis",
             "entity_count": 3,
@@ -5481,10 +5481,22 @@
           }
         },
         {
-          "id": "a311b153-44ae-469f-b537-986a3aec7bff",
+          "id": "2dfcb338-43a2-4fb8-929a-6e148c9285ad",
+          "name": "metadata.json",
+          "size": 112,
+          "link": "https://demo.istari.app/artifacts/2dfcb338-43a2-4fb8-929a-6e148c9285ad",
+          "content": {
+            "function": "ParseDISStream",
+            "source_file": "scenario_basic.dis",
+            "pdu_count": 35,
+            "dis_version": 7
+          }
+        },
+        {
+          "id": "76c50210-12fe-4731-9ec7-fbb15c04418f",
           "name": "pdus.json",
           "size": 25497,
-          "link": "https://demo.istari.app/artifacts/a311b153-44ae-469f-b537-986a3aec7bff",
+          "link": "https://demo.istari.app/artifacts/76c50210-12fe-4731-9ec7-fbb15c04418f",
           "content": {
             "source_file": "scenario_basic.dis",
             "pdu_count": 35,
@@ -6713,18 +6725,6 @@
               }
             ]
           }
-        },
-        {
-          "id": "c1dc6e1f-ee32-4a3e-9403-11342480447b",
-          "name": "metadata.json",
-          "size": 112,
-          "link": "https://demo.istari.app/artifacts/c1dc6e1f-ee32-4a3e-9403-11342480447b",
-          "content": {
-            "function": "ParseDISStream",
-            "source_file": "scenario_basic.dis",
-            "pdu_count": 35,
-            "dis_version": 7
-          }
         }
       ]
     },
@@ -6732,17 +6732,30 @@
       "name": "ValidateDISStream",
       "function_key": "@istari:ValidateDISStream",
       "status": "COMPLETED",
-      "job_id": "3dae26aa-3f53-4823-be01-18f5392dae43",
-      "job_url": "https://demo.istari.app/jobs/3dae26aa-3f53-4823-be01-18f5392dae43",
-      "duration_seconds": 45,
+      "job_id": "1b64825c-1b59-45dd-bf76-c58bc32b3322",
+      "job_url": "https://demo.istari.app/jobs/1b64825c-1b59-45dd-bf76-c58bc32b3322",
+      "duration_seconds": 30,
       "timeline": "JobStatusName.PENDING -> JobStatusName.CLAIMED -> JobStatusName.VALIDATING -> JobStatusName.RUNNING -> JobStatusName.UPLOADING -> JobStatusName.COMPLETED",
       "engineering_summary": "35 PDUs parsed. 35 PDUs parsed. 3 entities. 3 entities. 35 PDUs parsed. 35 PDUs parsed. ",
       "artifacts": [
         {
-          "id": "6ea3b1d4-d957-4a83-8105-11a0a6a92386",
+          "id": "991cd99d-2b41-47d1-9362-d4c113c96370",
+          "name": "metadata.json",
+          "size": 140,
+          "link": "https://demo.istari.app/artifacts/991cd99d-2b41-47d1-9362-d4c113c96370",
+          "content": {
+            "function": "ValidateDISStream",
+            "source_file": "scenario_basic.dis",
+            "is_valid": true,
+            "checks_passed": 5,
+            "checks_failed": 0
+          }
+        },
+        {
+          "id": "f6a5cb67-831c-4887-97b4-b476f9b602cb",
           "name": "validation.json",
           "size": 1164,
-          "link": "https://demo.istari.app/artifacts/6ea3b1d4-d957-4a83-8105-11a0a6a92386",
+          "link": "https://demo.istari.app/artifacts/f6a5cb67-831c-4887-97b4-b476f9b602cb",
           "content": {
             "source_file": "scenario_basic.dis",
             "is_valid": true,
@@ -6788,23 +6801,22 @@
           }
         },
         {
-          "id": "5370ed2d-aaef-4ba0-bf63-a79fdb18aae3",
+          "id": "254fc850-e9c0-4620-9492-cd124820e48d",
           "name": "metadata.json",
-          "size": 140,
-          "link": "https://demo.istari.app/artifacts/5370ed2d-aaef-4ba0-bf63-a79fdb18aae3",
+          "size": 124,
+          "link": "https://demo.istari.app/artifacts/254fc850-e9c0-4620-9492-cd124820e48d",
           "content": {
-            "function": "ValidateDISStream",
+            "function": "ConvertDISToJSON",
             "source_file": "scenario_basic.dis",
-            "is_valid": true,
-            "checks_passed": 5,
-            "checks_failed": 0
+            "pdu_count": 35,
+            "include_raw_bytes": false
           }
         },
         {
-          "id": "efcd57af-f971-40ae-aca5-1fc2d378a931",
+          "id": "02f4d73d-2321-4106-9794-c23a699a4198",
           "name": "dis_data.json",
           "size": 25524,
-          "link": "https://demo.istari.app/artifacts/efcd57af-f971-40ae-aca5-1fc2d378a931",
+          "link": "https://demo.istari.app/artifacts/02f4d73d-2321-4106-9794-c23a699a4198",
           "content": {
             "source_file": "scenario_basic.dis",
             "pdu_count": 35,
@@ -8036,22 +8048,10 @@
           }
         },
         {
-          "id": "538b613a-a566-4b3f-b270-ce538abe4af3",
-          "name": "metadata.json",
-          "size": 124,
-          "link": "https://demo.istari.app/artifacts/538b613a-a566-4b3f-b270-ce538abe4af3",
-          "content": {
-            "function": "ConvertDISToJSON",
-            "source_file": "scenario_basic.dis",
-            "pdu_count": 35,
-            "include_raw_bytes": false
-          }
-        },
-        {
-          "id": "e1efaae0-d7a0-4507-96c4-8116732b3b15",
+          "id": "3323cc57-9822-4fd7-8807-fdda7664e1ef",
           "name": "metadata.json",
           "size": 127,
-          "link": "https://demo.istari.app/artifacts/e1efaae0-d7a0-4507-96c4-8116732b3b15",
+          "link": "https://demo.istari.app/artifacts/3323cc57-9822-4fd7-8807-fdda7664e1ef",
           "content": {
             "function": "ExtractEntityStates",
             "source_file": "scenario_basic.dis",
@@ -8060,10 +8060,10 @@
           }
         },
         {
-          "id": "efdda3d8-e14c-4999-a599-dae531e60be1",
+          "id": "e1946311-589c-43dc-8d17-e6b81c178c82",
           "name": "entities.json",
           "size": 18680,
-          "link": "https://demo.istari.app/artifacts/efdda3d8-e14c-4999-a599-dae531e60be1",
+          "link": "https://demo.istari.app/artifacts/e1946311-589c-43dc-8d17-e6b81c178c82",
           "content": {
             "source_file": "scenario_basic.dis",
             "entity_count": 3,
@@ -8825,10 +8825,22 @@
           }
         },
         {
-          "id": "a311b153-44ae-469f-b537-986a3aec7bff",
+          "id": "2dfcb338-43a2-4fb8-929a-6e148c9285ad",
+          "name": "metadata.json",
+          "size": 112,
+          "link": "https://demo.istari.app/artifacts/2dfcb338-43a2-4fb8-929a-6e148c9285ad",
+          "content": {
+            "function": "ParseDISStream",
+            "source_file": "scenario_basic.dis",
+            "pdu_count": 35,
+            "dis_version": 7
+          }
+        },
+        {
+          "id": "76c50210-12fe-4731-9ec7-fbb15c04418f",
           "name": "pdus.json",
           "size": 25497,
-          "link": "https://demo.istari.app/artifacts/a311b153-44ae-469f-b537-986a3aec7bff",
+          "link": "https://demo.istari.app/artifacts/76c50210-12fe-4731-9ec7-fbb15c04418f",
           "content": {
             "source_file": "scenario_basic.dis",
             "pdu_count": 35,
@@ -10057,18 +10069,6 @@
               }
             ]
           }
-        },
-        {
-          "id": "c1dc6e1f-ee32-4a3e-9403-11342480447b",
-          "name": "metadata.json",
-          "size": 112,
-          "link": "https://demo.istari.app/artifacts/c1dc6e1f-ee32-4a3e-9403-11342480447b",
-          "content": {
-            "function": "ParseDISStream",
-            "source_file": "scenario_basic.dis",
-            "pdu_count": 35,
-            "dis_version": 7
-          }
         }
       ]
     }
@@ -10076,12 +10076,12 @@
   "input_models": [
     {
       "name": "scenario_basic.dis",
-      "model_id": "b779ca83-e184-4395-878e-4c4714fbea63",
+      "model_id": "485ae024-c283-4cf3-be89-822602e05446",
       "description": "3 entities x 10 timesteps + 3 fire + 2 detonation (DIS7)"
     },
     {
       "name": "scenario_combat.dis",
-      "model_id": "30568260-3b6b-4d0a-bee7-53eea1d85ab8",
+      "model_id": "4fc19286-2342-46e9-ab29-89aa28bf189e",
       "description": "2 entities x 20 timesteps + 5 fire + 5 detonation (DIS7)"
     }
   ],

@@ -6,6 +6,7 @@ from opendis_module.functions import (  # noqa: F401
     convert_dis_to_json,
     extract_entity_states,
     parse_dis_stream,
+    plot_scenario,
     validate_dis_stream,
 )
 from opendis_module.functions.registry import FUNCTIONS

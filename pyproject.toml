@@ -10,6 +10,7 @@ packages = [{include = "opendis_module"}]
 python = ">=3.12,<3.13"
 pydantic = "^2.0"
 opendis = ">=1.0"
+matplotlib = ">=3.7"
 
 [tool.poetry.group.dev.dependencies]
 pyinstaller = "^6.0"
