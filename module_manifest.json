@@ -1,6 +1,6 @@
 {
   "module_name": "@istari:opendis-module",
-  "module_version": "1.1.0",
+  "module_version": "1.2.0",
   "module_type": "function",
   "module_checksum": "hash",
   "module_display_name": "opendis DIS Protocol Module",
@@ -246,6 +246,43 @@
           "outputs": [
             {
               "name": "validation_json",
+              "type": "file",
+              "required": true
+            },
+            {
+              "name": "metadata",
+              "type": "file",
+              "required": true
+            }
+          ]
+        },
+        "operating_systems": [
+          "macOS 26"
+        ],
+        "tool_versions": [
+          "1.0"
+        ]
+      }
+    ],
+    "@istari:ParseDISCapture": [
+      {
+        "entrypoint": "opendis_module",
+        "run_command": "{entrypoint} ParseDISCapture --input-file {input_file} --output-file {output_file} --temp-dir {temp_dir}",
+        "function_schema": {
+          "inputs": {
+            "input_model": {
+              "type": "user_model",
+              "validation_types": [
+                "@extension:pcap",
+                "@extension:dis",
+                "@extension:bin"
+              ],
+              "optional": false
+            }
+          },
+          "outputs": [
+            {
+              "name": "capture_json",
               "type": "file",
               "required": true
             },

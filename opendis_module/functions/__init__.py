@@ -5,6 +5,7 @@ from opendis_module.functions import (  # noqa: F401
     analyze_scenario,
     convert_dis_to_json,
     extract_entity_states,
+    parse_dis_capture,
     parse_dis_stream,
     plot_scenario,
     validate_dis_stream,

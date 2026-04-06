@@ -106,6 +106,62 @@ def _make_detonation(
     return _serialize_pdu(pdu)
 
 
+def _build_pcap_file(dis_payloads: list[bytes]) -> bytes:
+    """Build a minimal PCAP file wrapping DIS payloads in Ethernet/IP/UDP.
+
+    Creates a valid libpcap file with:
+    - Global header (magic, version 2.4, Ethernet link type)
+    - One packet record per DIS payload, each wrapped in Eth/IP/UDP headers
+    """
+    # PCAP global header (little-endian)
+    # magic(4) + ver_major(2) + ver_minor(2) + thiszone(4) + sigfigs(4) + snaplen(4) + network(4)
+    global_header = struct.pack(
+        "<IHHiIII",
+        0xA1B2C3D4,  # magic
+        2, 4,         # version 2.4
+        0,            # timezone offset
+        0,            # timestamp accuracy
+        65535,        # snaplen
+        1,            # Ethernet
+    )
+
+    packets = b""
+    for i, payload in enumerate(dis_payloads):
+        udp_len = 8 + len(payload)
+        ip_total_len = 20 + udp_len
+        frame_len = 14 + ip_total_len
+
+        # Ethernet header: dst(6) + src(6) + type(2) = 14 bytes
+        eth = b"\x00" * 6 + b"\x00" * 6 + struct.pack(">H", 0x0800)
+
+        # IP header (20 bytes, no options): ver+IHL, DSCP, total_len, id, flags+frag,
+        # TTL, protocol(17=UDP), checksum(0), src_ip, dst_ip
+        ip_header = struct.pack(
+            ">BBHHHBBH4s4s",
+            0x45,  # version 4, IHL 5
+            0,     # DSCP
+            ip_total_len,
+            0,     # identification
+            0,     # flags + fragment offset
+            64,    # TTL
+            17,    # protocol = UDP
+            0,     # checksum (0 = not computed)
+            b"\xC0\xA8\x01\x01",  # src: 192.168.1.1
+            b"\xEF\x01\x01\x01",  # dst: 239.1.1.1 (DIS multicast)
+        )
+
+        # UDP header: src_port(2) + dst_port(2) + length(2) + checksum(2)
+        udp_header = struct.pack(">HHHH", 3000, 3000, udp_len, 0)
+
+        packet_data = eth + ip_header + udp_header + payload
+
+        # PCAP packet header: ts_sec(4) + ts_usec(4) + incl_len(4) + orig_len(4)
+        pkt_header = struct.pack("<IIII", i, 0, len(packet_data), len(packet_data))
+        packets += pkt_header + packet_data
+
+    return global_header + packets
+
+
 @pytest.fixture(scope="session")
 def test_inputs_dir(tmp_path_factory):
     """Create a session-scoped directory with DIS test files."""
@@ -177,6 +233,18 @@ def test_inputs_dir(tmp_path_factory):
     # --- empty.dis ---
     (d / "empty.dis").write_bytes(b"")
 
+    # --- sample_capture.pcap: DIS PDUs wrapped in PCAP format ---
+    # Build a minimal valid PCAP file with Ethernet/IP/UDP encapsulation
+    pcap_data = _build_pcap_file([
+        _make_entity_state(entity_id=1, timestamp=0, x=4500000.0, y=200000.0, z=4200000.0),
+        _make_entity_state(entity_id=1, timestamp=1000, x=4500100.0, y=200000.0, z=4200000.0),
+        _make_entity_state(entity_id=2, timestamp=0, x=4500000.0, y=200100.0, z=4200000.0, force_id=2),
+        _make_entity_state(entity_id=2, timestamp=1000, x=4500000.0, y=200200.0, z=4200000.0, force_id=2),
+        _make_fire(firing_id=1, target_id=2, timestamp=1500),
+        _make_detonation(firing_id=1, target_id=2, timestamp=2000),
+    ])
+    (d / "sample_capture.pcap").write_bytes(pcap_data)
+
     return d
 
 
@@ -198,3 +266,8 @@ def invalid_file(test_inputs_dir):
 @pytest.fixture
 def empty_file(test_inputs_dir):
     return str(test_inputs_dir / "empty.dis")
+
+
+@pytest.fixture
+def pcap_file(test_inputs_dir):
+    return str(test_inputs_dir / "sample_capture.pcap")

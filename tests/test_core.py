@@ -315,3 +315,154 @@ class TestPlotScenario:
         """PlotScenario is registered in FUNCTIONS."""
         from opendis_module.functions.registry import FUNCTIONS
         assert "PlotScenario" in FUNCTIONS
+
+
+# ── ParseDISCapture ────────────────────────────────────────────────────────
+class TestParseDISCapture:
+    def test_parse_raw_binary_capture(self, scenario_file):
+        """ParseDISCapture handles raw binary DIS files (.dis)."""
+        from opendis_module.services.capture_parser import parse_dis_capture
+
+        result = parse_dis_capture(scenario_file)
+        assert result["capture_format"] == "raw_binary"
+        assert result["total_pdus"] > 0
+        assert result["entity_count"] == 3
+        assert "EntityStatePdu" in result["pdu_type_breakdown"]
+        assert result["statistics"]["total_entity_state_updates"] > 0
+        assert result["statistics"]["entity_count"] == 3
+
+    def test_parse_pcap_capture(self, pcap_file):
+        """ParseDISCapture handles PCAP files with DIS payloads."""
+        from opendis_module.services.capture_parser import parse_dis_capture
+
+        result = parse_dis_capture(pcap_file)
+        assert result["capture_format"] == "pcap"
+        assert result["total_pdus"] == 6  # 4 entity states + 1 fire + 1 detonation
+        assert result["entity_count"] == 2
+        assert "EntityStatePdu" in result["pdu_type_breakdown"]
+        assert "FirePdu" in result["pdu_type_breakdown"]
+        assert "DetonationPdu" in result["pdu_type_breakdown"]
+
+    def test_entity_timelines(self, scenario_file):
+        """ParseDISCapture groups entities and builds timelines with positions."""
+        from opendis_module.services.capture_parser import parse_dis_capture
+
+        result = parse_dis_capture(scenario_file)
+        for entity in result["entities"]:
+            assert "entity_id" in entity
+            assert "entity_id_string" in entity
+            assert "timeline" in entity
+            assert entity["state_count"] > 0
+            for point in entity["timeline"]:
+                assert "timestamp" in point
+                assert "position_ecef" in point
+                assert "position_geodetic" in point
+                assert "orientation_rad" in point
+                assert "velocity_mps" in point
+                assert "damage_state" in point
+                geo = point["position_geodetic"]
+                assert -90 <= geo["latitude_deg"] <= 90
+                assert -180 <= geo["longitude_deg"] <= 180
+
+    def test_entity_speed_stats(self, scenario_file):
+        """ParseDISCapture computes per-entity speed statistics."""
+        from opendis_module.services.capture_parser import parse_dis_capture
+
+        result = parse_dis_capture(scenario_file)
+        for entity in result["entities"]:
+            if entity["state_count"] >= 2:
+                assert entity["speed_stats"] is not None
+                assert "min_mps" in entity["speed_stats"]
+                assert "max_mps" in entity["speed_stats"]
+                assert "avg_mps" in entity["speed_stats"]
+
+    def test_damage_state_extraction(self, scenario_file):
+        """ParseDISCapture extracts damage state from entity appearance bits."""
+        from opendis_module.services.capture_parser import parse_dis_capture
+
+        result = parse_dis_capture(scenario_file)
+        for entity in result["entities"]:
+            for point in entity["timeline"]:
+                assert point["damage_state"] in (
+                    "no_damage", "slight", "moderate", "destroyed", "unknown"
+                )
+
+    def test_statistics_summary(self, scenario_file):
+        """ParseDISCapture produces correct summary statistics."""
+        from opendis_module.services.capture_parser import parse_dis_capture
+
+        result = parse_dis_capture(scenario_file)
+        stats = result["statistics"]
+        assert stats["total_entity_state_updates"] == 30  # 3 entities * 10 states
+        assert stats["total_fire_events"] == 3
+        assert stats["total_detonation_events"] == 2
+        assert stats["entity_count"] == 3
+        assert stats["duration_seconds"] >= 0
+
+    def test_empty_file(self, empty_file):
+        """ParseDISCapture handles empty files gracefully."""
+        from opendis_module.services.capture_parser import parse_dis_capture
+
+        result = parse_dis_capture(empty_file)
+        assert result["total_pdus"] == 0
+        assert result["entity_count"] == 0
+        assert result["entities"] == []
+        assert result["all_pdus"] == []
+
+    def test_nonexistent_file(self):
+        """ParseDISCapture raises FileNotFoundError for missing files."""
+        from opendis_module.services.capture_parser import parse_dis_capture
+
+        with pytest.raises(FileNotFoundError):
+            parse_dis_capture("/tmp/nonexistent_capture.pcap")
+
+    def test_istari_wrapper_format(self, scenario_file):
+        """ParseDISCapture works with Istari wrapper input format."""
+        from opendis_module.functions.parse_dis_capture import parse_dis_capture_fn
+
+        input_json = json.dumps({
+            "input_model": {
+                "type": "user_model",
+                "value": scenario_file,
+            }
+        })
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            outputs = parse_dis_capture_fn(input_json, temp_dir)
+            assert len(outputs) == 2
+
+            capture_output = next(o for o in outputs if o.name == "capture_json")
+            assert Path(capture_output.path).exists()
+            content = json.loads(Path(capture_output.path).read_text())
+            assert content["total_pdus"] > 0
+            assert content["entity_count"] == 3
+
+            metadata_output = next(o for o in outputs if o.name == "metadata")
+            metadata = json.loads(Path(metadata_output.path).read_text())
+            assert metadata["function"] == "ParseDISCapture"
+            assert metadata["total_pdus"] > 0
+
+    def test_pcap_istari_wrapper(self, pcap_file):
+        """ParseDISCapture Istari wrapper works with PCAP files."""
+        from opendis_module.functions.parse_dis_capture import parse_dis_capture_fn
+
+        input_json = json.dumps({
+            "input_model": {
+                "type": "user_model",
+                "value": pcap_file,
+            }
+        })
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            outputs = parse_dis_capture_fn(input_json, temp_dir)
+            assert len(outputs) == 2
+
+            capture_output = next(o for o in outputs if o.name == "capture_json")
+            content = json.loads(Path(capture_output.path).read_text())
+            assert content["capture_format"] == "pcap"
+            assert content["entity_count"] == 2
+
+    def test_registered(self):
+        """ParseDISCapture is registered in FUNCTIONS."""
+        from opendis_module.functions.registry import FUNCTIONS
+        assert "ParseDISCapture" in FUNCTIONS
